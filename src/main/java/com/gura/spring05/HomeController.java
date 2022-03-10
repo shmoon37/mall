@@ -1,8 +1,12 @@
 package com.gura.spring05;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,29 +15,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
+	/*
+	 *  "/home.do" 요청이 왔을때 이 메소드로 요청으로 처리하기 
+	 *  
+	 *  .do 는 생략 가능 
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+	@RequestMapping("/home")
+	public String home(HttpServletRequest request) {
+		//DB 에서 읽어온 공지사항이라고 가정하자 
+		List<String> notice=new ArrayList<String>();
+		notice.add("쇼핑몰입니다");
+		//공지 사항을 request 에 담기
+		request.setAttribute("notice", notice);
+		//view 페이지 (jsp페이지) 로 forward 이동해서 응답 
 		return "home";
 	}
-	
+
 }
