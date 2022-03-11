@@ -24,7 +24,7 @@
 		</c:otherwise>
 	</c:choose>
 
-	<h1>mall</h1>
+	<h1>쇼핑몰</h1>
 	<br />
 	<a href="">상품 게시판 </a>
 	<br />
